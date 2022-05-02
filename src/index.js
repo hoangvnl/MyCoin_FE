@@ -4,19 +4,12 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "./redux/store";
 
-axios.defaults.baseURL = "https://aw-midterm-server.herokuapp.com";
+axios.defaults.baseURL = "http://localhost:5000";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

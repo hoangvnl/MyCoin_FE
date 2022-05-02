@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { makeStyles } from "@mui/styles";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -6,7 +6,8 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
-
+import { accessWalletService } from "../../../redux/wallet/wallet.services";
+import axios from "axios";
 const useStyles = makeStyles({
   wrapper: {
     display: "flex",
@@ -20,8 +21,33 @@ const useStyles = makeStyles({
 
 const WalletAccess = () => {
   const classes = useStyles();
+
+  const inputPrivateKeyRef = useRef(null);
+
+  const handleUploadPrivateKey = async (event) => {
+    const formData = new FormData();
+    const file = event.target.files[0];
+    event.target.value = null;
+    formData.append("private_key", file);
+
+    await accessWalletService(formData)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("Success:", result);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   return (
     <div className={classes.wrapper}>
+      <input
+        type="file"
+        style={{ display: "none" }}
+        ref={inputPrivateKeyRef}
+        onChange={handleUploadPrivateKey}
+      />
       <div>
         <Typography variant="h3" sx={{ color: "white" }}>
           Access my wallet
@@ -51,6 +77,7 @@ const WalletAccess = () => {
             color: "white",
             textAlign: "left",
           }}
+          onClick={() => inputPrivateKeyRef.current.click()}
         >
           <CardActionArea>
             <CardContent>
@@ -62,8 +89,7 @@ const WalletAccess = () => {
                 color="text.secondary"
                 sx={{ color: "white" }}
               >
-                Software methods like keystore file and mnemonic phrase should
-                only be used in offline settings by experienced users.
+                Private Key
               </Typography>
             </CardContent>
           </CardActionArea>

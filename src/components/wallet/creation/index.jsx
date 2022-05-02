@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
+import download from "downloadjs";
+import { createWalletService } from "../../../redux/wallet/wallet.services";
 
 const useStyles = makeStyles({
   wrapper: {
@@ -20,6 +22,13 @@ const useStyles = makeStyles({
 
 const WalletCreation = () => {
   const classes = useStyles();
+
+  const handleCreateWallet = async () => {
+    const res = await createWalletService().then((res) => res.data);
+    const blob = new Blob([res]);
+    download(blob, "private_key");
+  };
+
   return (
     <div className={classes.wrapper}>
       <div>
@@ -51,6 +60,7 @@ const WalletCreation = () => {
             color: "white",
             textAlign: "left",
           }}
+          onClick={handleCreateWallet}
         >
           <CardActionArea>
             <CardContent>

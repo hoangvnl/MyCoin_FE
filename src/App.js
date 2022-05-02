@@ -17,15 +17,9 @@ const useStyles = makeStyles({
 
 const App = () => {
   const classes = useStyles();
-  const user = useSelector(({ user }) => user.user);
-
-  const [activeTab, setActiveTab] = useState(0);
-  const handleChangeTab = (e, newTab) => {
-    setActiveTab(newTab);
-  };
 
   useEffect(() => {
-    document.title = "Classroom";
+    document.title = "My Coin";
   }, []);
 
   return (
@@ -71,7 +65,7 @@ const App = () => {
             component={GradeReviewDetail}
             authed={user}
           /> */}
-          <Route path="/" render={() => <Redirect to="/classrooms" />} />
+          <Route path="/" render={() => <Redirect to="/wallet/access" />} />
         </Switch>
       </BrowserRouter>
     </div>
