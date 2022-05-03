@@ -7,7 +7,7 @@ import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import { accessWalletService } from "../../../redux/wallet/wallet.services";
-import axios from "axios";
+
 const useStyles = makeStyles({
   wrapper: {
     display: "flex",
@@ -19,11 +19,9 @@ const useStyles = makeStyles({
   },
 });
 
-const WalletAccess = () => {
+const WalletAccess = ({ handleLogin }) => {
   const classes = useStyles();
-
   const inputPrivateKeyRef = useRef(null);
-
   const handleUploadPrivateKey = async (event) => {
     const formData = new FormData();
     const file = event.target.files[0];
@@ -31,9 +29,8 @@ const WalletAccess = () => {
     formData.append("private_key", file);
 
     await accessWalletService(formData)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Success:", result);
+      .then((res) => {
+        handleLogin(res);
       })
       .catch((error) => {
         console.error("Error:", error);

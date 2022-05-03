@@ -10,7 +10,7 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
         authed ? (
           <Component {...rest} {...props} currentUser={user} token={token} />
         ) : (
-          <Redirect to="/login" />
+          <Redirect to="/wallet/access" />
         )
       }
     />

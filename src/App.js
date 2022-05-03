@@ -4,7 +4,7 @@ import { makeStyles } from "@mui/styles";
 import WalletCreation from "./components/wallet/creation";
 import WalletAccess from "./components/wallet/access";
 import PrivateRoute from "./utils/private-route";
-import { useSelector } from "react-redux";
+import HomePage from "./components/login-page";
 
 const useStyles = makeStyles({
   root: {
@@ -17,54 +17,45 @@ const useStyles = makeStyles({
 
 const App = () => {
   const classes = useStyles();
-
+  const [address, setAddress] = useState(localStorage.getItem("address"));
   useEffect(() => {
     document.title = "My Coin";
   }, []);
+
+  const handleLogin = (newAddress) => {
+    setAddress(newAddress);
+    localStorage.setItem("address", newAddress);
+  };
 
   return (
     <div className={classes.root}>
       <BrowserRouter>
         <Switch>
-          <Route path="/wallet/creation" component={WalletCreation} />
-          <Route path="/wallet/access" component={WalletAccess} />
-
-          {/* <Route
-            path="/register"
+          <PrivateRoute
+            authed={address}
+            path="/wallet"
+            component={HomePage}
+            exact
+          />
+          <Route
+            path="/wallet/creation"
             render={() =>
-              !user ? <RegisterPage /> : <Redirect to="/classrooms" />
+              !address ? <WalletCreation /> : <Redirect to="/wallet" />
             }
-          />
-          <PrivateRoute
-            path="/classrooms"
-            component={ClassroomList}
-            authed={user}
             exact
           />
-          <PrivateRoute
-            path="/classrooms/:id"
-            component={ClassroomLayout}
-            handleChangeTab={handleChangeTab}
-            activeTab={activeTab}
-            authed={user}
-          />
-          <PrivateRoute path="/user" component={userDetails} authed={user} />
-          <PrivateRoute
-            path="/join"
-            component={JoinClassroomPage}
-            authed={user}
-          />
-          <PrivateRoute
-            path="/grade-reviews"
-            component={GradeReviews}
-            authed={user}
+          <Route
+            path="/wallet/access"
+            render={() =>
+              !address ? (
+                <WalletAccess handleLogin={handleLogin} />
+              ) : (
+                <Redirect to="/wallet" />
+              )
+            }
             exact
           />
-          <PrivateRoute
-            path="/grade-reviews/:id"
-            component={GradeReviewDetail}
-            authed={user}
-          /> */}
+
           <Route path="/" render={() => <Redirect to="/wallet/access" />} />
         </Switch>
       </BrowserRouter>
