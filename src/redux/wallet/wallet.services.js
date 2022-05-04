@@ -23,3 +23,14 @@ export const accessWalletService = (formData) => {
       .catch((error) => reject(error));
   });
 };
+
+export const getWalletBalanceService = () => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: "get",
+      url: "/balance",
+    })
+      .then((response) => resolve(response.data))
+      .catch((error) => reject(error));
+  });
+};

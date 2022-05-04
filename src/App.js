@@ -4,7 +4,7 @@ import { makeStyles } from "@mui/styles";
 import WalletCreation from "./components/wallet/creation";
 import WalletAccess from "./components/wallet/access";
 import PrivateRoute from "./utils/private-route";
-import HomePage from "./components/login-page";
+import Dashboard from "./components/wallet/dashboard";
 
 const useStyles = makeStyles({
   root: {
@@ -34,7 +34,7 @@ const App = () => {
           <PrivateRoute
             authed={address}
             path="/wallet"
-            component={HomePage}
+            component={Dashboard}
             exact
           />
           <Route
