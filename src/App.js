@@ -4,7 +4,7 @@ import { makeStyles } from "@mui/styles";
 import WalletCreation from "./components/wallet/creation";
 import WalletAccess from "./components/wallet/access";
 import PrivateRoute from "./utils/private-route";
-import Dashboard from "./components/wallet/dashboard";
+import WalletContent from "./components/wallet/dashboard";
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 
 const App = () => {
   const classes = useStyles();
-  const [address, setAddress] = useState(localStorage.getItem("address"));
+  const [address, setAddress] = useState(localStorage.getItem("address") || "");
   useEffect(() => {
     document.title = "My Coin";
   }, []);
@@ -27,6 +27,12 @@ const App = () => {
     localStorage.setItem("address", newAddress);
   };
 
+  const handleLogout = () => {
+    console.log(123);
+    setAddress("");
+    localStorage.clear();
+  };
+
   return (
     <div className={classes.root}>
       <BrowserRouter>
@@ -34,7 +40,9 @@ const App = () => {
           <PrivateRoute
             authed={address}
             path="/wallet"
-            component={Dashboard}
+            component={WalletContent}
+            handleLogout={handleLogout}
+            address={address}
             exact
           />
           <Route
@@ -55,7 +63,6 @@ const App = () => {
             }
             exact
           />
-
           <Route path="/" render={() => <Redirect to="/wallet/access" />} />
         </Switch>
       </BrowserRouter>

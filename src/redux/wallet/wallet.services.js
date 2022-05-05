@@ -34,3 +34,26 @@ export const getWalletBalanceService = () => {
       .catch((error) => reject(error));
   });
 };
+
+export const SendTransactionService = (address, amount) => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: "post",
+      url: "/sendTransaction",
+      data: { address, amount },
+    })
+      .then((response) => resolve(response.data))
+      .catch((error) => reject(error));
+  });
+};
+
+export const GetTransactionPoolService = () => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: "get",
+      url: "/transactionPool",
+    })
+      .then((response) => resolve(response.data))
+      .catch((error) => reject(error));
+  });
+};
