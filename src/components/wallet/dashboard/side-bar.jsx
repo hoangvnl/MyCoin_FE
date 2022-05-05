@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { getWalletBalanceService } from "../../../redux/wallet/wallet.services";
+import { getWalletBalanceService } from "../../../wallet-services/wallet.services";
 import { Button } from "@mui/material";
 import Divider from "@mui/material/Divider";
 

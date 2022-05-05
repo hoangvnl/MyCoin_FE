@@ -7,7 +7,7 @@ import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import download from "downloadjs";
-import { createWalletService } from "../../../redux/wallet/wallet.services";
+import { createWalletService } from "../../../wallet-services/wallet.services";
 
 const useStyles = makeStyles({
   wrapper: {

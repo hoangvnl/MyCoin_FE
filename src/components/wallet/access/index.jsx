@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
-import { accessWalletService } from "../../../redux/wallet/wallet.services";
+import { accessWalletService } from "../../../wallet-services/wallet.services";
 
 const useStyles = makeStyles({
   wrapper: {

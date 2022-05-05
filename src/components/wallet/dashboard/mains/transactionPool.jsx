@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GetTransactionPoolService } from "../../../../redux/wallet/wallet.services";
+import { GetTransactionPoolService } from "../../../../wallet-services/wallet.services";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";

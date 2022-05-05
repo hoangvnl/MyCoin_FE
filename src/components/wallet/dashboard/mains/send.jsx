@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import { Button, Typography } from "@mui/material";
-import { SendTransactionService } from "../../../../redux/wallet/wallet.services";
+import { SendTransactionService } from "../../../../wallet-services/wallet.services";
 
 const useStyles = makeStyles({
   formGroup: {
@@ -33,7 +33,11 @@ const Send = () => {
     }
     setInfo("");
     await SendTransactionService(address, amount)
-      .then((res) => console.log(res.data))
+      .then(() => {
+        setAddress("");
+        setAmount(0);
+        setInfo("Success!!!");
+      })
       .catch((err) => setInfo(err.response.data));
   };
 
@@ -62,7 +66,7 @@ const Send = () => {
           sx={{ mb: 4 }}
           placeholder="Address"
         />
-        <Typography>{info}</Typography>
+        <Typography sx={{ mb: 4 }}>{info}</Typography>
         <Button
           size="large"
           variant="outlined"
